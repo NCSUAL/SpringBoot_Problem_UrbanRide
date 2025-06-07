@@ -1,0 +1,5 @@
+“UrbanRide”는 서울·부산·대구에 지점을 둔 카셰어링 플랫폼이다.
+● 고객은 앱에서 차량 카테고리(Compact / SUV / EV 등)와 대여·반납 시간을 선택해 예약(Reservation) 을 생성한다.
+● 확정된 예약은 픽업 시 RentalContract 로 전환된다.
+● 주행거리·연장·연료·과태료 등으로 실시간 과금(ChargeItem) 이 누적되며, 반납 시 결제(Payment)가 이루어진다.
+● 예약->계약 전환과 차 할당(AssignVehicle)은 재고(Availability) 경쟁 상황이 발생한다.
