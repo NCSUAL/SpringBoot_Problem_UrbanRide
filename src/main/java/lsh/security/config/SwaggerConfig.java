@@ -9,7 +9,7 @@ import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
-import lsh.security.common.ServerList;
+import lsh.security.constant.ServerList;
 import lsh.security.utils.InfoUtil;
 
 @Configuration
@@ -37,6 +37,3 @@ public class SwaggerConfig {
             .summary("summary");
     }
 }
-
-//validated
-//https://bnzn2426.tistory.com/157

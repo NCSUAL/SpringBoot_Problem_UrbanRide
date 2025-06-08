@@ -14,7 +14,7 @@ public record ApiEntity<T>(
 
     boolean success,
 
-    Optional<Exception> exception
+    Optional<ErrorDto> errorDto
     
 ) {
     public static <T> ApiEntity<T> ok(T data){

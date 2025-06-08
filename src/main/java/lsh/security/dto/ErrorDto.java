@@ -1,6 +1,5 @@
 package lsh.security.dto;
 
-import org.springframework.http.HttpStatus;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +7,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class ErrorDto {
-    private final String ErrorCode;
-    private final String ErrorMessage;
+    private final String errorCode;
+    private final String errorMessage;
 
-    public static void of(HttpStatus httpStatus, final Exception exception){
-
+    public static ErrorDto of(final String errorCode, final Exception exception){
+        return new ErrorDto(errorCode, exception.getMessage());
     }
 }
