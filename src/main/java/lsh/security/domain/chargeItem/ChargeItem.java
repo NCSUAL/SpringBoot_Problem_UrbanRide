@@ -28,6 +28,7 @@ import lsh.security.domain.vo.Money;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorColumn(name = "charge_type", columnDefinition = "VARCHAR(31)")
+@BatchSize(size = 10)
 @Getter
 public abstract class ChargeItem {
 
@@ -38,7 +39,6 @@ public abstract class ChargeItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id", referencedColumnName = "rentalContract_id")
-    //@BatchSize(size = 10)
     private RentalContract rentalContract;
 
     @Embedded
