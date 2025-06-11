@@ -20,4 +20,8 @@ public record ApiEntity<T>(
     public static <T> ApiEntity<T> ok(T data){
         return new ApiEntity<>(HttpStatus.OK, Optional.of(data), true, Optional.empty());
     }
+
+    public static ApiEntity<?> fail(ErrorDto errorDto){
+        return new ApiEntity<>(HttpStatus.BAD_REQUEST, Optional.empty(), false, Optional.of(errorDto));
+    }
 }

@@ -42,7 +42,6 @@ public class Branch {
     @BatchSize(size = 10)
     private List<Vehicle> vehicles = new ArrayList<>();
 
-
     @Builder
     public Branch(final String name, final CityType cityType){
         this.name = name;
