@@ -23,7 +23,6 @@ public class BranchController {
 
     @RequestMapping(method=RequestMethod.POST)
     public ApiEntity<Branch> requestMethodName(@Valid @RequestBody BranchRequest branchRequest) {
-        System.out.println(branchRequest.toString());
         return ApiEntity.ok(branchService.createBranch(branchRequest).orElseThrow(() -> new UnsupportedOperationException("구현중입니다.")));
     }
     

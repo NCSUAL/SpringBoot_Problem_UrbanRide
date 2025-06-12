@@ -16,7 +16,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lsh.security.constant.PaymentStatus;
+import lsh.security.constant.nested.PaymentStatus;
 import lsh.security.domain.vo.Money;
 
 @Getter

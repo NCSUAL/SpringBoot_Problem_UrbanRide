@@ -15,7 +15,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lsh.security.constant.VehicleType;
+import lsh.security.constant.nested.VehicleType;
 
 @Getter
 @Entity

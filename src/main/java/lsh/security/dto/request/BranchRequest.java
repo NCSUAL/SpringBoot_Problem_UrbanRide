@@ -1,7 +1,7 @@
 package lsh.security.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lsh.security.constant.CityType;
+import lsh.security.constant.nested.CityType;
 import lsh.security.domain.Branch;
 
 public record BranchRequest(

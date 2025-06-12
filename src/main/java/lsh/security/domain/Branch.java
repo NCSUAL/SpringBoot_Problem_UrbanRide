@@ -19,7 +19,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lsh.security.constant.CityType;
+import lsh.security.constant.nested.CityType;
 
 @Getter
 @Entity

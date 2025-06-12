@@ -19,7 +19,7 @@ import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lsh.security.constant.RequestedClass;
+import lsh.security.constant.nested.RequestedClass;
 import lsh.security.domain.vo.BaseTime;
 
 @Getter
