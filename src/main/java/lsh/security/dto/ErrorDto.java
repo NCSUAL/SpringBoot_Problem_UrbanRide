@@ -10,7 +10,7 @@ public class ErrorDto {
     private final String errorCode;
     private final String errorMessage;
 
-    public static ErrorDto of(final String errorCode, final Exception exception){
-        return new ErrorDto(errorCode, exception.getMessage());
+    public static ErrorDto of(final String errorCode, final String message){
+        return new ErrorDto(errorCode, message);
     }
 }

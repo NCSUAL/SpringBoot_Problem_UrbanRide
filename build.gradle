@@ -31,13 +31,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.security:spring-security-test'
-	runtimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation 'org.junit.jupiter:junit-jupiter-api:5.13.1'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
+    // ✅ JUnit 버전 통일 (BOM)
+    testImplementation platform('org.junit:junit-bom:5.10.2')  // 또는 5.10.1도 안정적
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    // ✅ Spring Boot 테스트 통합 (기본적으로 JUnit 포함하지만 BOM으로 덮어씌움)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // ✅ Security 테스트
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // ✅ 나머지 필요 의존성
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
 }
 
 tasks.named('test') {

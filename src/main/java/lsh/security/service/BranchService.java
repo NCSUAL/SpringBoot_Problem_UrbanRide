@@ -1,5 +1,6 @@
 package lsh.security.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -19,5 +20,13 @@ public class BranchService {
 
     public Optional<Branch> createBranch(BranchRequest branchRequest){
         return Optional.of(branchRepository.save(branchRequest.toEntity()));
+    }
+
+    public Optional<Branch> findByName(final String name){
+        return branchRepository.findByName(name);
+    }
+
+    public List<Branch> findAll(){
+        return branchRepository.findAll();
     }
 }

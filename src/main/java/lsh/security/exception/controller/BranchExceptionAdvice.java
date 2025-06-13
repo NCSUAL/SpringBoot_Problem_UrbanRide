@@ -11,7 +11,8 @@ import lsh.security.exception.CityTypeConverterException;
 public class BranchExceptionAdvice {
 
     @ExceptionHandler(CityTypeConverterException.class)
-    public ApiEntity<?> CityTypeConverterException(CityTypeConverterException exception){
-        return ApiEntity.fail(ErrorDto.of(exception.getErrorCode(), exception));
+    public ApiEntity<?> cityTypeConverterException(CityTypeConverterException exception){
+        return ApiEntity.fail(ErrorDto.of(exception.getErrorCode(), exception.getMessage()));
     }
+
 }

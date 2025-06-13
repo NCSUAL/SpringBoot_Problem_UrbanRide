@@ -1,13 +1,12 @@
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import jakarta.validation.constraints.AssertTrue;
 import lsh.security.constant.nested.CityType;
 import lsh.security.domain.Branch;
 import lsh.security.dto.request.BranchRequest;
@@ -17,22 +16,27 @@ import lsh.security.service.BranchService;
 @ExtendWith(MockitoExtension.class)
 public class BranchControllerTest {
 
-    @Mock
+    @InjectMocks
     private BranchService branchService;
 
-    @InjectMocks
+    @Mock
     private BranchRepository branchRepository;
 
+    @Test
     public void 간단한_테스트(){
         //given
         BranchRequest branchRequest = new BranchRequest("test", CityType.SEOUL); 
 
         Branch branch = branchRequest.toEntity();
         //when
-        Mockito.when(branchRepository.save(branch)).thenReturn(branch);
+        Mockito.when(branchRepository.save(Mockito.any(Branch.class))).thenReturn(branch);
 
         //then
-        Assertions.assertEquals(Mockito.verify(branchService.createBranch(branchRequest)).get(), branch);
+        Branch result = branchService.createBranch(branchRequest).orElseThrow(() -> new IllegalArgumentException("간단한_테스트 실패"));
+        
+        Assertions.assertEquals(result, branch);
 
+        Mockito.verify(branchRepository).save(Mockito.any(Branch.class));
+        
     }
 }

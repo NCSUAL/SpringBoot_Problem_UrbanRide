@@ -4,10 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lsh.security.common.UniqueName;
 import lsh.security.domain.Branch;
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.request.BranchRequest;
 import lsh.security.service.BranchService;
+
+import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +25,13 @@ public class BranchController {
     private final BranchService branchService;
 
     @RequestMapping(method=RequestMethod.POST)
-    public ApiEntity<Branch> requestMethodName(@Valid @RequestBody BranchRequest branchRequest) {
+    public ApiEntity<Branch> requestCreateBranch(@Valid @UniqueName @RequestBody BranchRequest branchRequest) {
         return ApiEntity.ok(branchService.createBranch(branchRequest).orElseThrow(() -> new UnsupportedOperationException("구현중입니다.")));
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ApiEntity<List<Branch>> requestFindAllBranch(){
+        return ApiEntity.ok(branchService.findAll());
     }
     
 }
