@@ -1,5 +1,7 @@
 package lsh.security.constant.nested;
 
+import org.springframework.http.HttpStatus;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import lsh.security.exception.CityTypeConverterException;
@@ -17,7 +19,7 @@ public enum CityType {
             }
         }
 
-        throw new CityTypeConverterException(400,"CityType type cast error");
+        throw new CityTypeConverterException(HttpStatus.BAD_REQUEST,"CityType type cast error");
     }
 
 }

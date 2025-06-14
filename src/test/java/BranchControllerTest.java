@@ -11,7 +11,7 @@ import lsh.security.constant.nested.CityType;
 import lsh.security.domain.Branch;
 import lsh.security.dto.request.BranchRequest;
 import lsh.security.repository.BranchRepository;
-import lsh.security.service.BranchService;
+import lsh.security.service.branch.BranchService;
 
 @ExtendWith(MockitoExtension.class)
 public class BranchControllerTest {

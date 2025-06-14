@@ -10,4 +10,7 @@ import lsh.security.domain.Branch;
 public interface BranchRepository extends JpaRepository<Branch, Long>{
     
     Optional<Branch> findByName(String name);
+
+    Optional<Branch> findById(Long id);
+
 }

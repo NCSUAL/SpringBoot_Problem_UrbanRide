@@ -1,14 +1,16 @@
 package lsh.security.exception;
 
-public class CustomError extends RuntimeException{
-    private final String errorCode;
+import org.springframework.http.HttpStatus;
 
-    public CustomError(final int errorCode ,final String message){
+public class CustomError extends RuntimeException{
+    private final HttpStatus httpStatus;
+
+    public CustomError(final HttpStatus httpStatus ,final String message){
         super(message);
-        this.errorCode = Integer.toString(errorCode);
+        this.httpStatus = httpStatus;
     }
 
-    public String getErrorCode(){
-        return errorCode;
+    public HttpStatus getHttpStatus(){
+        return httpStatus;
     }
 }

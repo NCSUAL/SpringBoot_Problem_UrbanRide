@@ -4,15 +4,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lsh.security.common.UniqueName;
-import lsh.security.controller.swagger.BranchControllerSwagger;
 import lsh.security.domain.Branch;
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.request.BranchRequest;
-import lsh.security.service.BranchService;
-
+import lsh.security.dto.request.BranchUpdateRequest;
+import lsh.security.service.branch.BranchService;
+import lsh.security.swagger.controller.BranchControllerSwagger;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,16 +25,29 @@ public class BranchController implements BranchControllerSwagger {
 
     private final BranchService branchService;
 
-    @RequestMapping(method=RequestMethod.POST)
     @Override
-    public ApiEntity<Branch> requestCreateBranch(@Valid @UniqueName @RequestBody BranchRequest branchRequest) {
+    @RequestMapping(method = RequestMethod.GET)
+    public ApiEntity<List<Branch>> requestFindAllBranch(){
+        return ApiEntity.ok(branchService.findAll());
+    }
+
+    @Override
+    @RequestMapping(method=RequestMethod.POST)
+    public ApiEntity<Branch> requestCreateBranch(@Valid @RequestBody BranchRequest branchRequest) {
         return ApiEntity.ok(branchService.createBranch(branchRequest).orElseThrow(() -> new UnsupportedOperationException("구현중입니다.")));
     }
 
-    @RequestMapping(method = RequestMethod.GET)
     @Override
-    public ApiEntity<List<Branch>> requestFindAllBranch(){
-        return ApiEntity.ok(branchService.findAll());
+    @RequestMapping(method = RequestMethod.PUT)
+    public ApiEntity<Branch> requestUpdateBranch(@Valid @RequestBody BranchUpdateRequest branchUpdateRequest){
+        return ApiEntity.ok(branchService.isPresent(branchUpdateRequest.id(),present ->  branchService.updateByBranchUpdateRequest(branchUpdateRequest)));
+    }
+
+    @Override
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public ApiEntity<String> requestDeleteBranch(@PathVariable(value = "id") final Long id){
+        branchService.isPresent(id,present -> branchService.delete(id));
+        return ApiEntity.ok("해당 엔티티를 삭제했습니다.");
     }
     
 }

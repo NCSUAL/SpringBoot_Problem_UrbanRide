@@ -45,8 +45,10 @@ public class Branch {
     private List<Vehicle> vehicles = new ArrayList<>();
 
     @Builder
-    public Branch(final String name, final CityType cityType){
+    public Branch(final Long id, final String name, final CityType cityType){
+        this.id = id;
         this.name = name;
         this.cityType = cityType;
     }
+
 }

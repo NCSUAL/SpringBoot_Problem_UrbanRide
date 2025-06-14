@@ -7,14 +7,16 @@ import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import lsh.security.common.validator.UniqueNameValidator;
+import lsh.security.common.validator.UniqueColumnValidator;
 
-@Target(ElementType.PARAMETER)
+@Target({ElementType.FIELD,ElementType.PARAMETER,ElementType.RECORD_COMPONENT})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueNameValidator.class)
-public @interface UniqueName {
+@Constraint(validatedBy = UniqueColumnValidator.class)
+public @interface UniqueColumn {
 
-    String message() default "UniqueName Validation Exception";
+    Class<?> service();
+
+    String message() default "UniqueColumn Validation Exception";
 
     Class<?>[] groups() default {};
 
