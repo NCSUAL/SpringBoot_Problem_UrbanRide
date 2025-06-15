@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lsh.security.domain.Branch;
 import lsh.security.dto.request.BranchRequest;
-import lsh.security.dto.request.BranchUpdateRequest;
 import lsh.security.exception.NotFoundEntityException;
 import lsh.security.repository.BranchRepository;
 import lsh.security.service.UniqueColumnService;
@@ -27,6 +26,10 @@ public class BranchService implements UniqueColumnService{
         return Optional.of(branchRepository.save(branchRequest.toEntity()));
     }
 
+    public Optional<Branch> findById(final Long id){
+        return branchRepository.findById(id);
+    }
+
     @Override
     public Optional<Branch> findByName(final String name){
         return branchRepository.findByName(name);
@@ -35,6 +38,14 @@ public class BranchService implements UniqueColumnService{
     public List<Branch> findAll(){
         return branchRepository.findAll();
     }
+    
+    public Branch updateByBranchRequest(final BranchRequest branchRequest){
+        return branchRepository.save(branchRequest.toEntity());
+    }
+    
+    public Branch patchByBranchRequest(final Branch branch,final BranchRequest branchRequest){
+        return branchRepository.save(branch.patch(branchRequest));
+    }
 
     public void delete(final Long id){
         branchRepository.deleteById(id);
@@ -42,14 +53,6 @@ public class BranchService implements UniqueColumnService{
 
     public void delete(final Branch branch){
         branchRepository.delete(branch);
-    }
-    
-    public Optional<Branch> findById(final Long id){
-        return branchRepository.findById(id);
-    }
-
-    public Branch updateByBranchUpdateRequest(final BranchUpdateRequest branchUpdateRequest){
-        return branchRepository.save(branchUpdateRequest.toEntity());
     }
 
     public Branch isPresent(final Long id, Consumer<? super Branch> Consumer){

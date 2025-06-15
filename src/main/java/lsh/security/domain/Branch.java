@@ -2,6 +2,7 @@ package lsh.security.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.hibernate.annotations.BatchSize;
 
@@ -21,6 +22,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lsh.security.constant.nested.CityType;
+import lsh.security.dto.request.BranchRequest;
 
 @Getter
 @Entity
@@ -49,6 +51,20 @@ public class Branch {
         this.id = id;
         this.name = name;
         this.cityType = cityType;
+    }
+
+
+    public Branch patch(final BranchRequest branchRequest){
+        if(Objects.nonNull(branchRequest.name())){
+            this.name = branchRequest.name();
+        }
+
+        if(Objects.nonNull(branchRequest.cityName())){
+            this.cityType = branchRequest.cityName();
+        }
+        
+        System.out.println(branchRequest);
+        return this;
     }
 
 }
