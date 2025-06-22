@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.ErrorDto;
-import lsh.security.exception.CityTypeConverterException;
+import lsh.security.exception.VehicleConverterException;
 
 @RestControllerAdvice
-public class BranchExceptionAdvice {
+public class VehicleExceptionAdvice {
 
-    @ExceptionHandler(CityTypeConverterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiEntity<?> cityTypeConverterException(CityTypeConverterException exception){
-        return ApiEntity.fail(ErrorDto.of(exception.getHttpStatus(), exception.getMessage()));
+    @ExceptionHandler(VehicleConverterException.class)
+    public ApiEntity vehicleConverterException(VehicleConverterException vehicle){
+        return ApiEntity.fail(ErrorDto.of(vehicle.getHttpStatus(), vehicle.getMessage()));
     }
-
 }

@@ -6,5 +6,5 @@ import lsh.security.domain.Branch;
 
 public interface UniqueColumnService {
 
-    public Optional<Branch> findByName(final String name);
+    public Optional<Branch> InquiryWithUniqueName(final String name);
 } 

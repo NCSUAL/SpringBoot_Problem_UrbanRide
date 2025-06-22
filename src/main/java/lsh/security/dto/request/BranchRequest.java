@@ -9,7 +9,7 @@ import lsh.security.common.validator.crud.Patch;
 import lsh.security.common.validator.crud.Update;
 import lsh.security.constant.nested.CityType;
 import lsh.security.domain.Branch;
-import lsh.security.service.branch.BranchService;
+import lsh.security.service.BranchService;
 
 public record BranchRequest(
     @Null(groups = Patch.class)

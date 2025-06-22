@@ -13,15 +13,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lsh.security.constant.nested.VehicleType;
+import lsh.security.dto.request.vehicle.VehicleRequest;
 
-@Getter
 @Entity
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @BatchSize(size = 10)
+@Builder
+@Getter
 public class Vehicle {
     @Id
     @Column(name = "vehicle_id")
@@ -32,9 +35,19 @@ public class Vehicle {
     private VehicleType vehicleType;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "branch_id", referencedColumnName = "branch_id")
+    @JoinColumn(name = "branch_id", referencedColumnName = "branch_id", nullable = true)
     private Branch branch;
 
     @Version
     private int version;
+
+    public Vehicle patch(VehicleRequest vehicleRequest){
+        this.vehicleType = vehicleRequest.vehicleType();
+        return this;
+    }
+
+    public void addAssociation(final Branch branch){
+        this.branch = branch;
+        branch.addVehicle(this);
+    }
 }

@@ -10,10 +10,11 @@ import lsh.security.common.validator.crud.Update;
 import lsh.security.domain.Branch;
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.request.BranchRequest;
-import lsh.security.service.branch.BranchService;
+import lsh.security.dto.response.BranchResponse;
+import lsh.security.service.BranchService;
 import lsh.security.swagger.controller.BranchControllerSwagger;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,26 +32,32 @@ public class BranchController implements BranchControllerSwagger {
 
     @Override
     @RequestMapping(method = RequestMethod.GET)
-    public ApiEntity<List<Branch>> requestFindAllBranch(){
-        return ApiEntity.ok(branchService.findAll());
+    public ApiEntity<List<BranchResponse>> requestInquiryAllBranch(){
+        return ApiEntity.ok(branchService.inquiryAll().stream()
+        .map(arg -> BranchResponse.of(arg))
+        .collect(Collectors.toList()));
     }
 
     @Override
     @RequestMapping(method=RequestMethod.POST)
-    public ApiEntity<Branch> requestCreateBranch(@JsonView(Create.class) @Validated(Create.class) @RequestBody BranchRequest branchRequest) {
-        return ApiEntity.ok(branchService.createBranch(branchRequest).orElseThrow(() -> new UnsupportedOperationException("구현중입니다.")));
+    public ApiEntity<BranchResponse> requestInsertBranch(@JsonView(Create.class) @Validated(Create.class) @RequestBody BranchRequest branchRequest) {
+        return ApiEntity.ok(
+            BranchResponse.of(branchService.insertBranch(branchRequest)
+            .orElseThrow(() -> new UnsupportedOperationException("구현중입니다.")
+        )));
     }
 
     @Override
     @RequestMapping(method = RequestMethod.PUT)
-    public ApiEntity<Branch> requestUpdateBranch(@JsonView(Update.class) @Validated(Update.class) @RequestBody BranchRequest branchUpdateRequest){
-        return ApiEntity.ok(branchService.isPresent(branchUpdateRequest.id(),present ->  branchService.updateByBranchRequest(branchUpdateRequest)));
+    public ApiEntity<BranchResponse> requestUpdateBranch(@JsonView(Update.class) @Validated(Update.class) @RequestBody BranchRequest branchUpdateRequest){
+        return ApiEntity.ok(
+            BranchResponse.of(branchService.isPresent(branchUpdateRequest.id(),present ->  branchService.updateByBranchRequest(present, branchUpdateRequest))));
     }
 
     @Override
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
-    public ApiEntity<Branch> requestPatchBranch(@PathVariable(value = "id") final Long id, @JsonView(Patch.class) @Validated(Patch.class) @RequestBody BranchRequest branchPatchRequest){
-        return ApiEntity.ok(branchService.isPresent(id,present -> branchService.patchByBranchRequest(present, branchPatchRequest)));
+    public ApiEntity<BranchResponse> requestPatchBranch(@PathVariable(value = "id") final Long id, @JsonView(Patch.class) @Validated(Patch.class) @RequestBody BranchRequest branchPatchRequest){
+        return ApiEntity.ok(BranchResponse.of(branchService.isPresent(id,present -> branchService.patchByBranchRequest(present, branchPatchRequest))));
     }
 
     @Override

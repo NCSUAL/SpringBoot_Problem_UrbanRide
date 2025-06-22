@@ -1,4 +1,4 @@
-package lsh.security.service.branch;
+package lsh.security.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,6 @@ import lsh.security.domain.Branch;
 import lsh.security.dto.request.BranchRequest;
 import lsh.security.exception.NotFoundEntityException;
 import lsh.security.repository.BranchRepository;
-import lsh.security.service.UniqueColumnService;
 
 @Service
 @Transactional
@@ -22,25 +21,25 @@ public class BranchService implements UniqueColumnService{
 
     private final BranchRepository branchRepository;
 
-    public Optional<Branch> createBranch(BranchRequest branchRequest){
+    public Optional<Branch> insertBranch(BranchRequest branchRequest){
         return Optional.of(branchRepository.save(branchRequest.toEntity()));
     }
 
-    public Optional<Branch> findById(final Long id){
+    public Optional<Branch> inquiryWithID(final Long id){
         return branchRepository.findById(id);
     }
 
     @Override
-    public Optional<Branch> findByName(final String name){
+    public Optional<Branch> InquiryWithUniqueName(final String name){
         return branchRepository.findByName(name);
     }
 
-    public List<Branch> findAll(){
+    public List<Branch> inquiryAll(){
         return branchRepository.findAll();
     }
     
-    public Branch updateByBranchRequest(final BranchRequest branchRequest){
-        return branchRepository.save(branchRequest.toEntity());
+    public Branch updateByBranchRequest(final Branch branch, final BranchRequest branchRequest){
+        return branchRepository.save(branch.update(branchRequest));
     }
     
     public Branch patchByBranchRequest(final Branch branch,final BranchRequest branchRequest){
@@ -55,9 +54,13 @@ public class BranchService implements UniqueColumnService{
         branchRepository.delete(branch);
     }
 
+    public Branch isPresent(final Long id){
+        return inquiryWithID(id).orElseThrow( () -> new NotFoundEntityException(HttpStatus.BAD_REQUEST, "해당 엔티티는 존재하지 않습니다."));
+    }
+    
     public Branch isPresent(final Long id, Consumer<? super Branch> Consumer){
-        Optional<Branch> branch = findById(id);
-        branch.ifPresentOrElse(Consumer,() -> {throw new NotFoundEntityException(HttpStatus.BAD_REQUEST, "해당 엔티티는 존재하지 않습니다.");});
+        Optional<Branch> branch = inquiryWithID(id);
+        inquiryWithID(id).ifPresentOrElse(Consumer,() -> {throw new NotFoundEntityException(HttpStatus.BAD_REQUEST, "해당 엔티티는 존재하지 않습니다.");});
         return branch.get();
     }
 }

@@ -15,7 +15,7 @@ import lsh.security.constant.nested.CityType;
 import lsh.security.domain.Branch;
 import lsh.security.dto.request.BranchRequest;
 import lsh.security.repository.BranchRepository;
-import lsh.security.service.branch.BranchService;
+import lsh.security.service.BranchService;
 
 @ExtendWith(MockitoExtension.class)
 public class BranchServiceTest {
@@ -37,7 +37,7 @@ public class BranchServiceTest {
         //when
         when(branchRepository.save(any(Branch.class))).thenReturn(branchRequest.toEntity());
 
-        branchService.createBranch(branchRequest);
+        branchService.insertBranch(branchRequest);
 
         //then
         verify(branchRepository).save(any(Branch.class));
@@ -74,7 +74,40 @@ public class BranchServiceTest {
         assertEquals(branchRequest.toEntity(), newBranch);
     }
 
+    @Test
+    public void CRUD_PATCH_기능_테스트(){
+        //given
 
+        //기존 DB에 있던 엔티티
+        Branch branch = Branch.builder()
+            .id(150L)
+            .name("TestCar")
+            .cityType(CityType.DAEGU)
+            .build();
+
+        //요청 id
+        Long requestId = branch.getId();
+
+        //요청 body
+        BranchRequest branchRequest = new BranchRequest(null, "changeCar",null);
+        
+        //when
+
+        Branch patchBranch = branch.patch(branchRequest);
+        //id(PK)로 조회 가정
+        when(branchRepository.findById(requestId)).thenReturn(Optional.of(branch));
+        //특정 Branch 엔티티로 저장 가정
+        when(branchRepository.save(any(Branch.class))).thenReturn(patchBranch);
+
+        //then
+        Branch handleBranch = branchService.isPresent(requestId, present -> branchService.updateByBranchRequest(branch, branchRequest));
+
+        //저장 메소드가 호출되었는지 검증.
+        verify(branchRepository).save(any(Branch.class));
+
+        assertEquals(patchBranch, handleBranch);
+    }
+    
     @Test
     public void CRUD_DELETE_기능_테스트(){
         //given

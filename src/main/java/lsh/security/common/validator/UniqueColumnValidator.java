@@ -27,7 +27,7 @@ public class UniqueColumnValidator implements ConstraintValidator<UniqueColumn, 
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        Optional<Branch> branch = targetNameService.findByName(value);
+        Optional<Branch> branch = targetNameService.InquiryWithUniqueName(value);
 
         context.disableDefaultConstraintViolation();
         

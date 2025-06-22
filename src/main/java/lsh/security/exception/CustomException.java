@@ -2,10 +2,10 @@ package lsh.security.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class CustomError extends RuntimeException{
+public class CustomException extends RuntimeException{
     private final HttpStatus httpStatus;
 
-    public CustomError(final HttpStatus httpStatus ,final String message){
+    public CustomException(final HttpStatus httpStatus ,final String message){
         super(message);
         this.httpStatus = httpStatus;
     }
