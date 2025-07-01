@@ -123,22 +123,19 @@ Customer >── Reservation ────┤
 | status                      | ENUM(INIT, AUTHORIZED, CAPTURED, FAILED) | NOT NULL                       |
 | captured\_amount / currency | DECIMAL / CHAR(3)                        | NULLABLE                       |
 
----
 
-## REST API
+## 개발 현왕
 
-| 메서드    | 경로                                  | 설명                                                             |
-| ------ | ----------------------------------- | -------------------------------------------------------------- |
-| POST   | /api/reservations                   | 예약 생성 (입력: customerId, branchId, vehicleClass, startAt, endAt) |
-| POST   | /api/reservations/{id}/confirm      | 예약 확정 및 차량 자동 배정                                               |
-| DELETE | /api/reservations/{id}              | 예약 취소, PenaltyCharge 생성 가능성 있음                                 |
-| POST   | /api/contracts/{id}/charges/driving | 주행요금 추가 `{distanceKm}`                                         |
-| POST   | /api/contracts/{id}/charges/fuel    | 연료요금 추가 `{litersMissing}`                                      |
-| POST   | /api/contracts/{id}/return          | 반납 처리 및 총 요금 계산                                                |
-| POST   | /api/contracts/{id}/payment         | 결제 처리 및 상태 업데이트 (카드 토큰 기반)                                     |
-| GET    | /api/customers/{id}/contracts       | 고객 계약 목록 조회 (Projection: totalFee, paymentStatus)              |
+| 관계    | 설명                                  | 상황                                                         |
+| --------------------------- | ---------------------------------------- | ------------------------------ |
+| Branch 1 ── \* Vehicle            | 한 지점에 여러 차량 소속  | <a href ="#">완료</a>              |
+| Customer 1 ── \* Reservation      | 고객은 여러 예약 가능    | 개발중        |
+| Reservation 1 ── 1 RentalContract | 예약 확정 시 계약으로 전환 | 시작전 |
+| Vehicle 1 ── 1 RentalContract     | 계약마다 차량 하나 배정   | 시작전                              |
+| RentalContract 1 ── \* ChargeItem | 계약 중 과금 항목 발생   | 시작전                     |
+| RentalContract 1 ── 1 Payment     | 계약당 결제 1개       | 시작전       |
 
----
+
 
 ## 테이블 전략
 
