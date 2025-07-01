@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lsh.security.common.validator.crud.Create;
 import lsh.security.common.validator.crud.Patch;
 import lsh.security.common.validator.crud.Update;
-import lsh.security.domain.Branch;
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.request.BranchRequest;
 import lsh.security.dto.response.BranchResponse;

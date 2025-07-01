@@ -13,13 +13,13 @@ import lsh.security.dto.response.nested.Branch;
 @Builder
 @Getter
 public final class VehicleResponse {
-    private final String id;
+    private final String vin;
     private final VehicleType vehicleType;
     private final Branch branch;
 
     public static VehicleResponse of(Vehicle vehicle){
         return VehicleResponse.builder()
-            .id(vehicle.getId())
+            .vin(vehicle.getId())
             .vehicleType(vehicle.getVehicleType())
             .branch(Objects.isNull(vehicle.getBranch()) ? null : Branch.of(vehicle.getBranch()))
             .build();

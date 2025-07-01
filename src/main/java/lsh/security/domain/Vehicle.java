@@ -1,5 +1,7 @@
 package lsh.security.domain;
 
+import java.util.Objects;
+
 import org.hibernate.annotations.BatchSize;
 
 import jakarta.persistence.Column;
@@ -42,6 +44,14 @@ public class Vehicle {
     private int version;
 
     public Vehicle patch(VehicleRequest vehicleRequest){
+
+        if(Objects.nonNull(vehicleRequest.vehicleType())){
+            this.vehicleType = vehicleRequest.vehicleType();
+        }
+        return this;
+    }
+
+    public Vehicle update(VehicleRequest vehicleRequest){
         this.vehicleType = vehicleRequest.vehicleType();
         return this;
     }
@@ -49,5 +59,10 @@ public class Vehicle {
     public void addAssociation(final Branch branch){
         this.branch = branch;
         branch.addVehicle(this);
+    }
+
+    public void deleteAssociation(final Branch branch){
+        this.branch = null;
+        branch.removeVehicle(this);
     }
 }

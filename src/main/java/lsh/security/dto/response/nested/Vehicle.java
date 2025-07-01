@@ -8,12 +8,12 @@ import lsh.security.constant.nested.VehicleType;
 @Builder
 @Getter
 public final class Vehicle {
-    private final String id;
+    private final String vin;
     private final VehicleType vehicleType;
 
     public static Vehicle of(lsh.security.domain.Vehicle vehicle){
         return Vehicle.builder()
-            .id(vehicle.getId())
+            .vin(vehicle.getId())
             .vehicleType(vehicle.getVehicleType())
             .build();
     }

@@ -21,9 +21,6 @@ public interface BranchControllerSwagger {
     @Operation(description = "특정 Branch를 수정하는 API 입니다.", summary = "특정 Branch 수정")
     public ApiEntity<BranchResponse> requestUpdateBranch(BranchRequest branchUpdateRequest);
 
-    @Operation(description = "특정 Branch를 삭제하는 API 입니다.", summary = "특정 Branch를 삭제")
-    public ApiEntity<String> requestDeleteBranch(final Long id);
-
     @Operation(description = "특정 Branch를 일부분 수정하는 API 입니다.", summary = "특정 Branch를 일부분 수정",
     requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
         content = @Content(
@@ -32,4 +29,8 @@ public interface BranchControllerSwagger {
     )
     )
     public ApiEntity<BranchResponse> requestPatchBranch(final Long id, BranchRequest branchPatchRequest);
+
+    @Operation(description = "특정 Branch를 삭제하는 API 입니다.", summary = "특정 Branch를 삭제")
+    public ApiEntity<String> requestDeleteBranch(final Long id);
+
 }

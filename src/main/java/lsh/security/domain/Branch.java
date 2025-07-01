@@ -79,6 +79,10 @@ public class Branch {
     public void addVehicle(final Vehicle vehicle){
         this.vehicles.add(vehicle);
     }
+
+    public void removeVehicle(final Vehicle vehicle){
+        this.vehicles.remove(vehicle);
+    }
     
     @Override
     public String toString(){

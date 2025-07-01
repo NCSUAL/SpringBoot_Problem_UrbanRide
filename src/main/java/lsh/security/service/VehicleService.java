@@ -32,8 +32,12 @@ public class VehicleService {
         return vehicleRepository.findById(id);
     }
 
-    public Vehicle patchByVehicleRequest(final Vehicle vehicle, final VehicleRequest vehicleRequest){
-        return vehicleRepository.save(vehicle.patch(vehicleRequest));
+    public Vehicle patchByVehicleRequest( final VehicleRequest vehicleRequest){
+        return isPresent(vehicleRequest.vin(), present -> present.patch(vehicleRequest));
+    }
+
+    public Vehicle updateByVehicleRequest(final VehicleRequest vehicleRequest){
+        return isPresent(vehicleRequest.vin(), present -> present.update(vehicleRequest));
     }
 
     public Vehicle isPresent(final String id){
