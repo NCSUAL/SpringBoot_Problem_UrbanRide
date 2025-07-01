@@ -128,7 +128,7 @@ Customer >── Reservation ────┤
 
 | 관계    | 설명                                  | 상황                                                         |
 | --------------------------- | ---------------------------------------- | ------------------------------ |
-| Branch 1 ── \* Vehicle            | 한 지점에 여러 차량 소속  | <a href ="#">완료</a>              |
+| Branch 1 ── \* Vehicle            | 한 지점에 여러 차량 소속  | <a href ="#">개발중</a>              |
 | Customer 1 ── \* Reservation      | 고객은 여러 예약 가능    | 개발중        |
 | Reservation 1 ── 1 RentalContract | 예약 확정 시 계약으로 전환 | 시작전 |
 | Vehicle 1 ── 1 RentalContract     | 계약마다 차량 하나 배정   | 시작전                              |
