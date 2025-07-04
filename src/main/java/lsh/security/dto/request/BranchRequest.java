@@ -23,13 +23,13 @@ public record BranchRequest(
     String name,
 
     @JsonView({Update.class, Create.class, Patch.class})
-    CityType cityName) 
+    CityType cityType) 
 {
         public Branch toEntity(){
             return Branch.builder()
             .id(id)
             .name(name)
-            .cityType(cityName)
+            .cityType(cityType)
             .build();
         }
 }

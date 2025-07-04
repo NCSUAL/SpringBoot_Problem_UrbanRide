@@ -58,7 +58,7 @@ public class Branch {
 
     public Branch update(final BranchRequest branchRequest){
         this.name = branchRequest.name();
-        this.cityType = branchRequest.cityName();
+        this.cityType = branchRequest.cityType();
         
         return this;
     }
@@ -68,8 +68,8 @@ public class Branch {
             this.name = branchRequest.name();
         }
 
-        if(Objects.nonNull(branchRequest.cityName())){
-            this.cityType = branchRequest.cityName();
+        if(Objects.nonNull(branchRequest.cityType())){
+            this.cityType = branchRequest.cityType();
         }
         
         System.out.println(branchRequest);
