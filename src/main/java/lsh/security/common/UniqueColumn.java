@@ -21,4 +21,5 @@ public @interface UniqueColumn {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
+
 }

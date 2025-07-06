@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import lsh.security.dto.ApiEntity;
 import lsh.security.dto.ErrorDto;
+import lsh.security.exception.NotConvertException;
 import lsh.security.exception.NotFoundEntityException;
 
 @RestControllerAdvice
@@ -22,6 +23,12 @@ public class ExceptionAdvice {
     @ExceptionHandler(NotFoundEntityException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiEntity<?> notFoundEntityException(NotFoundEntityException exception){
+        return ApiEntity.fail(ErrorDto.of(exception.getHttpStatus(), exception.getMessage()));
+    }
+
+    @ExceptionHandler(NotConvertException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiEntity<?> notConverterException(NotConvertException exception){
         return ApiEntity.fail(ErrorDto.of(exception.getHttpStatus(), exception.getMessage()));
     }
 }
