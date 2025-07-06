@@ -11,7 +11,6 @@ public class VehicleSpecification {
 
     public static Specification<Vehicle> associationBranch(){
         return (root, query, criteriaBuilder) -> {
-            root.fetch("branch", JoinType.INNER);
 
             Join<Vehicle, Branch> join = root.join("branch",JoinType.INNER); 
 
