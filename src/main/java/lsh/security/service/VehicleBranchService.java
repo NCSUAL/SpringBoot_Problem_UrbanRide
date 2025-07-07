@@ -1,5 +1,7 @@
 package lsh.security.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,11 @@ public class VehicleBranchService {
         Vehicle vehicle = vehicleService.isPresent(vehicleWithBranchRequest.vin());
         branchService.isPresent(vehicleWithBranchRequest.branchId(), present -> vehicle.deleteAssociation(present));
         return vehicle;
+    }
+
+    //연관관계 설정된 차량 조회
+    public List<Vehicle> inquiryByAssociationBranch(){
+        return vehicleService.inquiryAllByAssociationBranch();
     }
 
 }

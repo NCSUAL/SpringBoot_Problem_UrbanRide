@@ -13,6 +13,7 @@ import lsh.security.domain.Vehicle;
 import lsh.security.dto.request.vehicle.VehicleRequest;
 import lsh.security.exception.NotFoundEntityException;
 import lsh.security.repository.VehicleRepository;
+import static lsh.security.repository.specification.VehicleSpecification.*;
 
 @Service
 @Transactional
@@ -52,6 +53,10 @@ public class VehicleService {
 
     public List<Vehicle> inquiryAll(){
         return vehicleRepository.findAll();
+    }
+
+    public List<Vehicle> inquiryAllByAssociationBranch(){
+        return vehicleRepository.findAll(associationBranch());
     }
 
     public void delete(final String id){

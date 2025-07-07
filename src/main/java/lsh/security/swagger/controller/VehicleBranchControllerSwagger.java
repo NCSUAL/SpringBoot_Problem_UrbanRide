@@ -1,5 +1,7 @@
 package lsh.security.swagger.controller;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lsh.security.dto.ApiEntity;
@@ -14,4 +16,7 @@ public interface VehicleBranchControllerSwagger {
 
     @Operation(description = "Vehicle와 Branch 연관관계를 해제해주는 API 입니다.", summary = "Vehicle와 Branch 연관관계를 해제")
     public ApiEntity<VehicleResponse> requestDeleteAssociationVehicleAndBranch(VehicleWithBranchRequest vehicleWithBranchRequest);
+
+    @Operation(description = "Vehicle와 Branch 연관관계가 설정된 엔티티만 조회해주는 API 입니다.", summary = "Vehicle와 Branch 연관관계가 설정된 엔티티만 조회")
+    public ApiEntity<List<VehicleResponse>> requestInquiryByAssociationBranch();
 } 

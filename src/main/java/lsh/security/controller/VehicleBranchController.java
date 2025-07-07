@@ -1,5 +1,7 @@
 package lsh.security.controller;
 
+import java.util.List;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,15 @@ public class VehicleBranchController implements VehicleBranchControllerSwagger{
     private final VehicleBranchService vehicleBranchService;
 
     @Override
+    @RequestMapping(method = RequestMethod.GET)
+    public ApiEntity<List<VehicleResponse>> requestInquiryByAssociationBranch(){
+        return ApiEntity.ok(vehicleBranchService.inquiryByAssociationBranch()
+        .stream()
+        .map(entity -> VehicleResponse.of(entity))
+        .toList());
+    } 
+
+    @Override
     @RequestMapping(method = RequestMethod.PUT)
     public ApiEntity<VehicleResponse> requestUpdateAssociationVehicleAndBranch(@Validated(Update.class) @RequestBody VehicleWithBranchRequest vehicleWithBranchRequest){
         return ApiEntity.ok(VehicleResponse.of(vehicleBranchService.associationVehicleAndBranch(vehicleWithBranchRequest)));
@@ -33,5 +44,6 @@ public class VehicleBranchController implements VehicleBranchControllerSwagger{
     public ApiEntity<VehicleResponse> requestDeleteAssociationVehicleAndBranch(@Validated(Delete.class) @RequestBody VehicleWithBranchRequest vehicleWithBranchRequest){
         return ApiEntity.ok(VehicleResponse.of(vehicleBranchService.deleteAssociationVehicleAndBranch(vehicleWithBranchRequest)));
     }
+
 
 }
